@@ -1,8 +1,8 @@
 
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME : NAINA MOHAMED Z</H3>
+<H3>ENTER YOUR REGISTER NO. 212223230131</H3>
 <H3>EX. NO.4</H3>
-<H3>DATE:</H3>
+<H3>DATE:09.10.2025</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
 <H3>Aim:</H3>
 To implement a Multilayer Perceptron for Multi classification
@@ -116,11 +116,66 @@ Normalize our dataset.
 
 <H3>Program:</H3> 
 
-Insert your code here
+```
+# Include packages and builtin classes
 
-<H3>Output:</H3>
+import pandas as pd
+import sklearn
+from sklearn import preprocessing
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import classification_report, confusion_matrix
 
-Show your results here
+# Read the csv file to be considered for Multi-classification
+cropdata = pd.read_csv('crop_yield.csv')
+cropdata = cropdata.dropna()
+
+# Seperate the input features and target from the dataset
+x = cropdata[['Crop_Year','Area','Production','Annual_Rainfall','Fertilizer','Pesticide']]
+y = cropdata['Crop']
+
+# Transform the categorial into numerical values
+le = preprocessing.LabelEncoder()
+y_encoded = le.fit_transform(y)
+
+# Split the data  for training  and testing
+x_train,x_test,y_train,y_test = train_test_split(x, y_encoded, test_size=0.25, random_state=42, stratify=y_encoded)
+
+# Normalize the input features
+scaler = StandardScaler()
+scaler.fit(x_train)
+x_train = scaler.transform(x_train)
+x_test = scaler.transform(x_test)
+
+# Define the MLP classifier
+mlp = MLPClassifier(hidden_layer_sizes=(15,15,15),max_iter=3000)
+
+# Train the classifier 
+
+mlp.fit(x_train,y_train)
+
+predictions = mlp.predict(x_test)
+
+flower_predictions = le.inverse_transform(predictions)
+
+print(flower_predictions)
+
+print(confusion_matrix(y_test, predictions))
+
+print(classification_report(y_test, predictions))
+```
+# Output:
+
+### Prdiction
+<img width="837" height="333" alt="image" src="https://github.com/user-attachments/assets/73fbba6f-6521-4e46-8555-2447eee8bdf0" />
+
+### Confusion Matrix
+<img width="482" height="122" alt="image" src="https://github.com/user-attachments/assets/d7a88158-2aef-45a7-998c-80eba1c23b9f" />
+
+### Classification_Report
+<img width="424" height="709" alt="image" src="https://github.com/user-attachments/assets/332ebac6-b8c8-4bfc-ab86-71d2f2ef9af6" />
+
 
 <H3>Result:</H3>
 Thus, MLP is implemented for multi-classification using python.
