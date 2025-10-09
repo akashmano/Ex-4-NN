@@ -33,7 +33,7 @@ MLP has the following features:
 
 3 Distinctive Characteristics of MLP:
 
-Ø  Each neuron in network includes a non-linear activation function
+Ø  Each neuron in network includes a non-linear activation function.
 
 ![image](https://user-images.githubusercontent.com/112920679/198814300-0e5fccdf-d3ea-4fa0-b053-98ca3a7b0800.png)
 
